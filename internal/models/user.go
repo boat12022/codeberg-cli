@@ -1,4 +1,4 @@
-package task
+package models
 
 type User struct {
 	ID                int    `json:"id"`
@@ -12,7 +12,7 @@ type User struct {
 	Language          string `json:"language"`
 	IsAdmin           bool   `json:"is_admin"`
 	LastLogin         string `json:"last_login"`
-	CreatedAt         string `json:"created_at"`
+	Created           string `json:"created"`
 	Restricted        bool   `json:"restricted"`
 	Active            bool   `json:"active"`
 	ProhibitLogin     bool   `json:"prohibit_login"`
