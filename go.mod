@@ -1,4 +1,4 @@
-module codeberg.org/13thab/github-cli
+module codeberg.org/13thab/codeberg-cli
 
 go 1.26.1
 

@@ -8,9 +8,9 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "gh",
-	Short: "GitHub CLI",
-	Long:  "A command-line interface for interacting with GitHub.",
+	Use:   "cb",
+	Short: "Codeberg CLI",
+	Long:  "A command-line interface for interacting with Codeberg.",
 }
 
 func Execute() {

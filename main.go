@@ -1,6 +1,6 @@
 package main
 
-import "codeberg.org/13thab/github-cli/cmd"
+import "codeberg.org/13thab/codeberg-cli/cmd"
 
 func main() {
 	cmd.Execute()
