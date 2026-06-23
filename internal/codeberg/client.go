@@ -57,3 +57,22 @@ func (c *Client) GetRepos(username string) ([]models.Repository, error) {
 	}
 	return repos, nil
 }
+
+func (c *Client) GetRepo(username string, repoName string) (*models.Repository, error) {
+	url := c.BaseURL + "/repos/" + username + "/" + repoName
+	req, err := c.HTTP.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer req.Body.Close()
+
+	if req.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", req.StatusCode)
+	}
+
+	var repo models.Repository
+	if err := json.NewDecoder(req.Body).Decode(&repo); err != nil {
+		return nil, err
+	}
+	return &repo, nil
+}
