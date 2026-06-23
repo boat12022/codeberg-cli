@@ -59,6 +59,29 @@ codeberg-cli (Go) ⭐ 1
 dotfiles (Shell) ⭐ 0
 ```
 
+#### `repo <username> <repo>`
+
+Get detailed information about a single repository.
+
+```sh
+cb repo 13thab codeberg-cli
+```
+
+Output:
+
+```
+Repository: codeberg-cli
+Description: A command-line interface for Codeberg
+Owner: 13thab
+Language: Go
+Stars: 1
+Forks: 0
+Watchers: 1
+Created: 2024-08-12T18:21:00Z
+Updated: 2025-06-21T00:00:00Z
+URL: https://codeberg.org/13thab/codeberg-cli
+```
+
 #### `stats <username>`
 
 Show statistics for a Codeberg user.
@@ -71,7 +94,7 @@ cb stats 13thab
 
 ```
 .
-├── cmd/                 # Cobra command definitions (root, user, repos, stats)
+├── cmd/                 # Cobra command definitions (root, user, repos, repo, stats)
 ├── internal/
 │   ├── codeberg/        # HTTP client for the Codeberg API
 │   └── models/          # API response types
