@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"codeberg.org/13thab/codeberg-cli/internal/models"
 )
@@ -75,4 +76,29 @@ func (c *Client) GetRepo(username string, repoName string) (*models.Repository, 
 		return nil, err
 	}
 	return &repo, nil
+}
+
+func (c *Client) GetIssues(username string, repoName string, state string, limit int) ([]models.Issue, error) {
+	url := c.BaseURL + "/repos/" + username + "/" + repoName + "/issues"
+	if state != "" {
+		url += "?state=" + state
+	}
+	if limit > 0 {
+		url += "&limit=" + strconv.Itoa(limit)
+	}
+	req, err := c.HTTP.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer req.Body.Close()
+
+	if req.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", req.StatusCode)
+	}
+
+	var issues []models.Issue
+	if err := json.NewDecoder(req.Body).Decode(&issues); err != nil {
+		return nil, err
+	}
+	return issues, nil
 }
