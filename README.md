@@ -82,6 +82,54 @@ Updated: 2025-06-21T00:00:00Z
 URL: https://codeberg.org/13thab/codeberg-cli
 ```
 
+#### `issues <username> <repo>`
+
+List issues for a repository.
+
+```sh
+cb issues 13thab codeberg-cli
+```
+
+Output:
+
+```
+#3 Add clone command
+#1 Document the repo command
+```
+
+Flags:
+
+- `-s`, `--state` — filter by state (default `open`)
+- `-l`, `--limit` — number of issues to display (default `10`)
+
+#### `prs <username> <repo>`
+
+List pull requests for a repository.
+
+```sh
+cb prs 13thab codeberg-cli
+```
+
+Output:
+
+```
+#5 [open] Add prs command
+#2 [open] Add issues command
+```
+
+Flags:
+
+- `-s`, `--state` — filter by state (default `open`)
+- `-l`, `--limit` — number of results (default `10`)
+
+#### `clone <username> <repo>`
+
+Clone a Codeberg repository.
+
+```sh
+cb clone 13thab codeberg-cli
+```
+
 #### `stats <username>`
 
 Show statistics for a Codeberg user.
@@ -94,7 +142,7 @@ cb stats 13thab
 
 ```
 .
-├── cmd/                 # Cobra command definitions (root, user, repos, repo, stats)
+├── cmd/                 # Cobra command definitions (root, user, repos, repo, issues, prs, clone, stats)
 ├── internal/
 │   ├── codeberg/        # HTTP client for the Codeberg API
 │   └── models/          # API response types
