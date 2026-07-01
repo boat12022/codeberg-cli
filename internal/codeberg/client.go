@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"strconv"
 
 	"codeberg.org/13thab/codeberg-cli/internal/models"
@@ -101,4 +102,40 @@ func (c *Client) GetIssues(username string, repoName string, state string, limit
 		return nil, err
 	}
 	return issues, nil
+}
+
+func (c *Client) GetPullRequests(username string, repoName string, state string, limit int) ([]models.PullRequest, error) {
+	base := fmt.Sprintf("%s/repos/%s/%s/pulls", c.BaseURL, username, repoName)
+
+	u, err := url.Parse(base)
+	if err != nil {
+		return nil, err
+	}
+
+	q := u.Query()
+
+	if state != "" {
+		q.Set("state", state)
+	}
+	if limit > 0 {
+		q.Set("limit", strconv.Itoa(limit))
+	}
+
+	u.RawQuery = q.Encode()
+
+	req, err := c.HTTP.Get(u.String())
+	if err != nil {
+		return nil, err
+	}
+	defer req.Body.Close()
+
+	if req.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", req.StatusCode)
+	}
+
+	var prs []models.PullRequest
+	if err := json.NewDecoder(req.Body).Decode(&prs); err != nil {
+		return nil, err
+	}
+	return prs, nil
 }
